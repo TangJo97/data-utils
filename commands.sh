@@ -13,3 +13,7 @@ format (){
 all_tests (){
     python -m unittest discover -v tests
 }
+
+ignore-pre-commit(){
+    git commit --no-verify -m "$1"
+}
