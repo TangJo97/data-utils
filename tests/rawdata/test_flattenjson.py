@@ -1,5 +1,7 @@
-from main.rawdata import flatten_json
 import unittest
+
+from main.rawdata import flatten_json
+
 
 # python -m unittest -v utils/tests/rawdata/test_flattenjson.py
 class TestFlattenJson(unittest.TestCase):

@@ -1,5 +1,7 @@
-from main.rawdata import class_from_json
 import unittest
+
+from main.rawdata import class_from_json
+
 
 # python -m unittest -v utils/tests/rawdata/test_classfromjson.py
 class TestClassFromJson(unittest.TestCase):

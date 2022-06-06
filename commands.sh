@@ -6,12 +6,18 @@ activate (){
 }
 
 format (){
-    black main/
-    black tests/
+    black ./
 }
 
 all_tests (){
     python -m unittest discover -v tests
+}
+
+all_checks (){
+    isort .
+    pycln . --config pyproject.toml
+    black .
+    flake8 .
 }
 
 ignore-pre-commit(){

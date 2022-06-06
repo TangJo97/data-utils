@@ -1,7 +1,7 @@
 # %%
-from .israwstructures import isjson, isiterable, isvector
+from .israwstructures import isiterable, isvector
 from .namingconversion import to_pascal_case
-from typing import Any
+
 
 # %%
 def __dico_to_class_fields_wrapper(original_dico: dict, class_name: str):

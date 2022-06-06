@@ -1,9 +1,11 @@
-from main.rawdata import (
-    to_pascal_case,
-    snake_case_to_camel_case,
-    camel_case_to_snake_case,
-)
 import unittest
+
+from main.rawdata import (
+    camel_case_to_snake_case,
+    snake_case_to_camel_case,
+    to_pascal_case,
+)
+
 
 # python -m unittest -v utils/tests/rawdata/test_namingconversion.py
 class TestToPascalCase(unittest.TestCase):

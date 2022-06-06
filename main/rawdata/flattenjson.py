@@ -1,6 +1,7 @@
 # %%
 import json
-from .israwstructures import isjson, isiterable, isvector
+
+from .israwstructures import isiterable, isvector
 
 
 def __flatten_dico(original_dico: dict, sep: str, prefix="") -> dict:

@@ -1,5 +1,7 @@
-from main.rawdata import isjson, isiterable, isvector
 import unittest
+
+from main.rawdata import isiterable, isjson, isvector
+
 
 # python -m unittest -v utils/tests/rawdata/test_israwstructures.py
 class TestIsJson(unittest.TestCase):
