@@ -14,9 +14,13 @@ all_tests (){
 }
 
 all_checks (){
+    echo "############### Performing Isort ###############"""
     isort .
+    echo "############### Removing unused imports ###############"""
     pycln . --config pyproject.toml
+    echo "############### Formatting ###############"""
     black .
+    echo "############### Checking PEP8 compliance ###############"""
     flake8 .
 }
 

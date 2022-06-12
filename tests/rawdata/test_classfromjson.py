@@ -1,6 +1,6 @@
 import unittest
 
-from main.rawdata import class_from_json
+from main.rawdata import class_from_json, reduce_json_to_one_example
 
 
 # python -m unittest -v utils/tests/rawdata/test_classfromjson.py
@@ -63,3 +63,25 @@ class EntryZ(BaseModel):
 \tb: Optional[int]"""
         self.maxDiff = None
         self.assertEqual(class_from_json(data, class_name), result)
+
+    def test_reduce_json_if_list(self):
+        data = [
+            {"hello": 10, "salut": 30, "bene": 30},
+            {"chava": 15, "bien": 46, "bene": 2},
+        ]
+        self.assertEqual(len(reduce_json_to_one_example(data)), 3)
+
+    def test_should_select_the_most_filled(self):
+        data = [
+            {"tanguy": None, "salut": 30, "va": 10},
+            {"tanguy": [], "salut": None, "va": 5},
+            {"tanguy": 2, "salut": "voila", "va": 10},
+            {"tanguy": 2},
+        ]
+        self.assertEqual(
+            reduce_json_to_one_example(data), {"tanguy": 2, "salut": "voila", "va": 10}
+        )
+
+    def test_should_return_itself_if_just_dico(self):
+        data = {"tanguy": 10, "salut": 20}
+        self.assertEqual(reduce_json_to_one_example(data), data)

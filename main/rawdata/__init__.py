@@ -1,5 +1,5 @@
 # nopycln: file
-from .classfromjson import class_from_json
+from .classfromjson import class_from_json, reduce_json_to_one_example
 from .flattenjson import flatten_json
 from .israwstructures import isiterable, isjson, isvector
 from .namingconversion import (
