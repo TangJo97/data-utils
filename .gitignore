@@ -5,3 +5,4 @@ todo
 dist/
 build/
 main/data_utils.egg-info/
+.coverage

@@ -10,7 +10,8 @@ format (){
 }
 
 all_tests (){
-    python -m unittest discover -v tests
+    coverage run -m unittest discover -v tests
+    coverage report -m --omit="*/tests/*"
 }
 
 all_checks (){
@@ -26,4 +27,19 @@ all_checks (){
 
 ignore-pre-commit(){
     git commit --no-verify -m "$1"
+}
+
+publish(){
+    echo "Did you run 'nox --session tests' first? [y/n]"
+    read response
+    if [[ $response == "n" ]]
+    then
+        echo "Stopping the publishing"
+        return
+    fi
+    all_tests
+    all_checks
+    echo "############### Building the Project ###############"
+    python -m build .
+    echo "Don't forget to Git your files"
 }
