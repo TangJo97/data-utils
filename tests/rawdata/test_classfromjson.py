@@ -31,6 +31,26 @@ class TestClassFromJson(unittest.TestCase):
 from pydantic import BaseModel
 
 
+class EntryZ(BaseModel):
+\ta: Optional[int]
+\tb: Optional[int]
+
+
+class EntryF(BaseModel):
+\ta: Optional[int]
+\tb: Optional[int]
+
+
+class EntryE(BaseModel):
+\tentryF: Optional[int]
+\tentryG: Optional[str]
+
+
+class EntryD(BaseModel):
+\tentryE: List[EntryE]
+\tentryH: Optional[int]
+
+
 class {class_name}(BaseModel):
 \tid: int
 \tentryA: Optional[str]
@@ -40,27 +60,7 @@ class {class_name}(BaseModel):
 \tentryF: List[EntryF]
 \tentryP: List[List[List[str]]]
 \tentryB: Optional[NoneType]
-\tentryZ: EntryZ
-
-
-class EntryD(BaseModel):
-\tentryE: List[EntryE]
-\tentryH: Optional[int]
-
-
-class EntryE(BaseModel):
-\tentryF: Optional[int]
-\tentryG: Optional[str]
-
-
-class EntryF(BaseModel):
-\ta: Optional[int]
-\tb: Optional[int]
-
-
-class EntryZ(BaseModel):
-\ta: Optional[int]
-\tb: Optional[int]"""
+\tentryZ: EntryZ"""
         self.maxDiff = None
         self.assertEqual(class_from_json(data, class_name), result)
 
@@ -85,3 +85,6 @@ class EntryZ(BaseModel):
     def test_should_return_itself_if_just_dico(self):
         data = {"tanguy": 10, "salut": 20}
         self.assertEqual(reduce_json_to_one_example(data), data)
+
+
+

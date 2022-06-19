@@ -104,7 +104,7 @@ def class_from_json(json_example, class_name):
     list_string_classes = map(
         __dico_fields_to_case_class_string, list_of_classes_without_Nones
     )
-    joined_classes = ("\n" * 3).join(list_string_classes)
+    joined_classes = ("\n" * 3).join(list(list_string_classes)[::-1]) # reverse the order
     return imports + "\n" * 3 + joined_classes
 
 
