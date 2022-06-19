@@ -28,6 +28,14 @@ class TestToPascalCase(unittest.TestCase):
         result = "PropertyLivingRoomSize"
         self.assertEqual(to_pascal_case(data, sep="__"), result)
 
+    def test_on_single_word(self):
+        data = "hello"
+        self.assertEqual(to_pascal_case(data, sep="__"), "Hello")
+
+    def test_on_single_word_already_capitalized(self):
+        data = "Hello"
+        self.assertEqual(to_pascal_case(data, sep="__"), data)
+
 
 class TestSnakeCaseToCamelCase(unittest.TestCase):
     def test_on_snake_case_data(self):

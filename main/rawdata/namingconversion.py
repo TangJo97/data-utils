@@ -52,18 +52,6 @@ def to_pascal_case(field: str, sep="__") -> str:
     case string, it would be ```"_"```)
     """
     elements = field.split(sep)
-    if len(elements) == 0:
-        only_element = elements[0]
-        return only_element[0].upper() + only_element[1:]
     capitalized_elements = map(__capitalize_first_letter, elements)
     return "".join(capitalized_elements)
-
-
-# FIXME: maybe add this
-# def to_pascal_case_keep_sep(field: str, sep="__") -> str:
-#     elements = field.split(sep)
-#     if len(elements) == 0:
-#         only_element = elements[0]
-#         return only_element[0].upper() + b[1:]
-#     capitalized_elements = map(__capitalize_first_letter, elements)
-#     return sep.join(capitalized_elements)
+    

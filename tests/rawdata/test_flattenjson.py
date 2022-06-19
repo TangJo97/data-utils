@@ -5,6 +5,21 @@ from main.rawdata import flatten_json
 
 # python -m unittest -v utils/tests/rawdata/test_flattenjson.py
 class TestFlattenJson(unittest.TestCase):
+    def test_if_not_an_iterable(self):
+        data = "tanguy"
+        self.assertEqual(flatten_json(data, sep="00"), data)
+
+    def test_works_on_lists_recursively(self):
+        data = [
+            {"tanguy": "hello", "jason": {"deroulo": "salut"}},
+            {"jazz": "coucou", "wesh": {"coucou": 69}},
+        ]
+        result = [
+            {"tanguy": "hello", "jason00deroulo": "salut"},
+            {"jazz": "coucou", "wesh00coucou": 69},
+        ]
+        self.assertEqual(flatten_json(data, sep="00"), result)
+
     def test_multileveltesting(self):
         multilevelnesting = {
             "entry1_level1": [

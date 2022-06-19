@@ -72,8 +72,8 @@ from json import load
 with open("data.json") as f:
   data = load(f)
 
-data_with_schema = Main(**data) # if only one example
-data_with_schema_list = map(lambda  x: Main(**x), data) # if list of json
+data_with_schema = Main.parse_obj(data) # if only one example
+data_with_schema_list = map(lambda  x: Main.parse_obj(x), data) # if list of json
 ```
 
 Note that if some values are empty, the type cannot be inferred. Therefore, the engine will default to put "NoneType". You can then replace it in the generated file. 
