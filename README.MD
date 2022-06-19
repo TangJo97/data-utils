@@ -1,4 +1,12 @@
 # Introduction
+## Table of Content
+- [Introduction](#introduction)
+  - [Table of Content](#table-of-content)
+  - [Installation](#installation)
+  - [Usage](#usage)
+    - [Generate data model from JSON data](#generate-data-model-from-json-data)
+    - [Flatten JSON data](#flatten-json-data)
+  - [License](#license)
 
 This project will help you deal with data operations.
 Notably, it will:
@@ -57,6 +65,18 @@ class Field1(BaseModel):
 
 If `data.json` was a list of dictionnaries, it would select the least empty one.
 
+If you want to convert your data to that schema, you simply need to:
+```python
+from json import load
+
+with open("data.json") as f:
+  data = load(f)
+
+data_with_schema = Main(**data) # if only one example
+data_with_schema_list = map(lambda  x: Main(**x), data) # if list of json
+```
+
+Note that if some values are empty, the type cannot be inferred. Therefore, the engine will default to put "NoneType". You can then replace it in the generated file. 
 ### Flatten JSON data
 
 It can flatten any level of nesting in JSON data
