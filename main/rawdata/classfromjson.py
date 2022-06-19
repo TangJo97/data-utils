@@ -72,20 +72,14 @@ def reduce_json_to_one_example(data) -> Dict[Any, Any]:
         return data
 
 
-def __json_take_most_filled(
-    accumulator: Dict[Any, Any], inner_json_data: Dict[Any, Any]
-) -> Dict[Any, Any]:
-    count_nb_filled_fields = lambda x, y: x + 1 if y[1] else 0
-    count_filled = reduce(
-        count_nb_filled_fields, inner_json_data.items(), 0
-    )  # if non-empty
-    count_filled_accumulator = reduce(count_nb_filled_fields, accumulator.items(), 0)
-    return inner_json_data if count_filled > count_filled_accumulator else accumulator
-
-
 def __reduce_json(json_data: List[Dict[Any, Any]]) -> Dict[Any, Any]:
-    # return json_data[0]
-    return reduce(__json_take_most_filled, json_data)
+    json_data_only_non_empty_filled = map(
+        lambda dico: {key: value for key, value in dico.items() if value},
+        json_data,
+    )
+    return reduce(
+        lambda dico1, dico2: {**dico1, **dico2}, json_data_only_non_empty_filled
+    )
 
 
 def class_from_json(json_example, class_name):
@@ -104,7 +98,9 @@ def class_from_json(json_example, class_name):
     list_string_classes = map(
         __dico_fields_to_case_class_string, list_of_classes_without_Nones
     )
-    joined_classes = ("\n" * 3).join(list(list_string_classes)[::-1]) # reverse the order
+    joined_classes = ("\n" * 3).join(
+        list(list_string_classes)[::-1]
+    )  # reverse the order
     return imports + "\n" * 3 + joined_classes
 
 
