@@ -6,7 +6,7 @@ name: CI
 on:
   # Triggers the workflow on push or pull request events but only for the "master" branch
   pull_request:
-    branches: [ "master" ]
+    branches: ["master"]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -22,10 +22,17 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
+      - name: Setup Python
+        uses: actions/setup-python@v4.0.0
+        with:
+          python-version: ["3.9", "3.10"]
 
       # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
+      - name: Download Poetry & Nox
         run: |
           source commands.sh
           dev_setup
-          publish
+      -name: Run Tests
+        run: all_tests
+      -name: Run Checks
+        run: all_checks
