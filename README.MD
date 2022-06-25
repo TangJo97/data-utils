@@ -6,6 +6,7 @@
   - [Usage](#usage)
     - [Generate data model from JSON data](#generate-data-model-from-json-data)
     - [Flatten JSON data](#flatten-json-data)
+  - [How to contribute](#how-to-contribute)
   - [License](#license)
 
 This project will help you deal with data operations.
@@ -109,6 +110,21 @@ Would return:
 
 It can of course go deeper in the nesting & can deal with list of dictionnaries by
 flattening those nested dictionnaries
+
+## How to contribute
+
+You can clone this repository locally and run the following:
+```bash
+source commands.sh
+dev_setup
+```
+
+I would advise to run the following command before raising a PR:
+```bash
+source commands.sh
+publish
+```
+And make the necessary changes so that this command can run end-to-end.
 
 ## License
 
