@@ -54,4 +54,3 @@ def to_pascal_case(field: str, sep="__") -> str:
     elements = field.split(sep)
     capitalized_elements = map(__capitalize_first_letter, elements)
     return "".join(capitalized_elements)
-    

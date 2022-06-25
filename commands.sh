@@ -1,28 +1,49 @@
 #!/usr/bin/env sh
 
 activate (){
-    . ./env/Scripts/activate # when I do this, it will source activate, which 
+    # . ./env/Scripts/activate # when I do this, it will source activate, which 
     # will replace my current source of this file. 
+    poetry shell
+}
+
+dev_setup(){
+    pip install nox==2022.1.7
+    poetry install
 }
 
 format (){
-    black ./
+    echo "############### Formatting ###############"""
+    poetry run black . -v
 }
 
-all_tests (){
-    coverage run -m unittest discover -v tests
-    coverage report -m --omit="*/tests/*"
+sort_import(){
+    echo "############### Performing Isort ###############"""
+    poetry run isort .
+}
+
+clean_import(){
+    echo "############### Removing unused imports ###############"""
+    poetry run pycln . --config pyproject.toml
+}
+
+compliance(){
+    echo "############### Checking PEP8 compliance ###############"""
+    poetry run flake8 .
+}
+
+all_tests(){
+    echo "############### Start Testing environments ###############"
+    nox --session tests
+}
+
+building(){
+    echo "############### Building the Project ###############"
+    poetry build
 }
 
 all_checks (){
-    echo "############### Performing Isort ###############"""
-    isort .
-    echo "############### Removing unused imports ###############"""
-    pycln . --config pyproject.toml
-    echo "############### Formatting ###############"""
-    black .
-    echo "############### Checking PEP8 compliance ###############"""
-    flake8 .
+    clean_import && sort_import && format && compliance  # && is to make sure that if one fail
+    # everything fails
 }
 
 ignore-pre-commit(){
@@ -30,16 +51,5 @@ ignore-pre-commit(){
 }
 
 publish(){
-    echo "Did you run 'nox --session tests' first? [y/n]"
-    read response
-    if [[ $response == "n" ]]
-    then
-        echo "Stopping the publishing"
-        return
-    fi
-    all_tests
-    all_checks
-    echo "############### Building the Project ###############"
-    python -m build .
-    echo "Don't forget to Git your files"
+    all_tests && all_checks && building && echo"" && echo "Don't forget to Git your files"
 }
