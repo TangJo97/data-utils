@@ -30,3 +30,11 @@ jobs:
       - uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
+      - name: Download Poetry & Nox
+        run: |
+          source commands.sh
+          dev_setup
+      -name: Run Tests
+        run: all_tests
+      -name: Run Checks
+        run: all_checks
