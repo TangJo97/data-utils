@@ -8,7 +8,7 @@ on:
   pull_request:
     branches: ["master"]
   push:
-    branches: ["master"] 
+    branches: ["master"]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -23,17 +23,17 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - uses: actions/checkout@v3
-      - name: Setup Python
-        uses: actions/setup-python@v4.0.0
-        with:
-          python-version: ["3.9", "3.10"]
+      # - name: Setup Python
+      #   uses: actions/setup-python@v4.0.0
+      #   with:
+      #     python-version: ["3.9", "3.10"]
 
-      # Runs a set of commands using the runners shell
-      - name: Download Poetry & Nox
-        run: |
-          source commands.sh
-          dev_setup
-      -name: Run Tests
-        run: all_tests
-      -name: Run Checks
-        run: all_checks
+      # # Runs a set of commands using the runners shell
+      # - name: Download Poetry & Nox
+      #   run: |
+      #     source commands.sh
+      #     dev_setup
+      # -name: Run Tests
+      #   run: all_tests
+      # -name: Run Checks
+      #   run: all_checks
