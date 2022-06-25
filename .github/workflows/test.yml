@@ -21,7 +21,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
+        os: [ubuntu-latest]
         python-version: ["3.9", "3.10"]
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -34,7 +34,7 @@ jobs:
         run: |
           source commands.sh
           dev_setup
-      # -name: Run Tests
-      #   run: all_tests
-      # -name: Run Checks
-      #   run: all_checks
+      - name: Run Tests
+        run: all_tests
+      - name: Run Checks
+        run: all_checks
