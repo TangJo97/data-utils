@@ -34,7 +34,7 @@ jobs:
         run: |
           source commands.sh
           dev_setup
-      -name: Run Tests
-        run: all_tests
-      -name: Run Checks
-        run: all_checks
+      # -name: Run Tests
+      #   run: all_tests
+      # -name: Run Checks
+      #   run: all_checks
