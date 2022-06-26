@@ -5,8 +5,6 @@ name: CICD
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the "master" branch
-  push:
-    branches: ["master"]
   pull_request:
     branches: ["master"]
 
@@ -34,5 +32,5 @@ jobs:
         run: |
           source commands.sh
           dev_setup
-          all_tests
+          all_tests >> $GITHUB_STEP_SUMMARY
           all_checks
