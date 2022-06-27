@@ -5,8 +5,6 @@ name: CICD
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the "master" branch
-  push:
-    branches: ["master"]
   pull_request:
     branches: ["master"]
 
@@ -18,21 +16,35 @@ jobs:
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        python-version: ["3.9", "3.10"]
+    # runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
+    # strategy:
+    #   matrix:
+    #     os: [ubuntu-latest]
+    #     python-version: ["3.9", "3.10"]
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - uses: actions/checkout@v3
       # Runs a single command using the runners shell
       - uses: actions/setup-python@v4
         with:
-          python-version: ${{ matrix.python-version }}
+          # python-version: ${{ matrix.python-version }}
+          python-version: "3.9"
+      - uses: actions/setup-python@v4
+        with:
+          # python-version: ${{ matrix.python-version }}
+          python-version: "3.10"
+
       - name: Download Poetry & Nox and Tests all
         run: |
           source commands.sh
           dev_setup
-          all_tests
-          all_checks
+          echo "# Testing" >> summary.md
+          all_tests >> summary.md
+          echo "# Compliance" >> summary.md
+          compliance >> summary.md
+      - name: Upload Summary
+        run: |
+          pip install requests
+          pull_number=$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
+          python comment_pr.py $GITHUB_REPOSITORY $pull_number summary.md ${{secrets.GITHUB_TOKEN}}
