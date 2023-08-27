@@ -7,7 +7,7 @@ activate (){
 }
 
 dev_setup(){
-    pip install nox==2022.1.7
+    python -m pip install nox==2022.1.7
     echo "Downloading Poetry"
     curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
     source $HOME/.poetry/env
